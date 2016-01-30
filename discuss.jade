@@ -1,0 +1,23 @@
+head
+  title discuss
+
+body
+  h1 discuss
+
+  +reply
+
+  each comments
+    +comment
+
+template(name='reply')
+  form(class='reply')
+    textarea(name='text' rows='5' placeholder='Type to add your comment')
+    input(type='submit')
+
+template(name='comment')
+  div.comment
+    p.tagline
+      a(href='#')= username
+      time= timestamp
+    p.text
+      = text
