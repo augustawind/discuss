@@ -1,18 +1,19 @@
+Posts = new Mongo.Collection('posts')
 Comments = new Mongo.Collection('comments')
 
 if Meteor.isServer
-  Meteor.startup ->
-    console.log 'This code runs on the server'
-
   Meteor.publish 'comments', ->
-    Comments.find({})
+    Comments.find()
 
 if Meteor.isClient
   Meteor.subscribe('comments')
 
   Template.body.helpers
     comments: ->
-      Comments.find({})
+      Comments.find()
+
+    countComments: ->
+      Comments.find().count()
 
   Template.body.events
     'submit .reply': (event) ->
@@ -23,7 +24,7 @@ if Meteor.isClient
       Meteor.call('addComment', text)
 
       event.target.text.value = ''
-      
+
 Meteor.methods
   addComment: (text) ->
     Comments.insert
