@@ -2,23 +2,35 @@ head
   title discuss
 
 body
-  h1 discuss
+  header
+    h1 discuss
 
-  +reply
+  form(class='new-topic')
+    p: input(type='text' name='title'
+          placeholder='Describe your post in a few words')
+    textarea(name='text' rows='5' cols='30' placeholder='Write your post here')
+    p: input(type='submit' value='Start discussion')
 
-  p #{countComments} comments
-  each comments
-    +comment
+  #topics
+    each topics
+      +topic
 
-template(name='reply')
-  form(class='reply')
-    textarea(name='text' rows='5' placeholder='Type to add your comment')
-    input(type='submit')
+template(name='topic')
+  div.topic
+    header
+      h2= title
+
+    form(class='reply')
+      textarea(name='text' rows='5' cols='30' placeholder='Write your comment here')
+      p: input(type='submit' value='Reply')
+
+    p #{countComments} comments
+    each comments
+      +comment
 
 template(name='comment')
   div.comment
     p.tagline
       a(href='#')= username
-      time= timestamp
     p.text
       = text

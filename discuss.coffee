@@ -1,33 +1,51 @@
-Posts = new Mongo.Collection('posts')
+Topics = new Mongo.Collection('topics')
 Comments = new Mongo.Collection('comments')
 
-if Meteor.isServer
-  Meteor.publish 'comments', ->
-    Comments.find()
+#if Meteor.isServer
 
 if Meteor.isClient
-  Meteor.subscribe('comments')
 
-  Template.body.helpers
-    comments: ->
-      Comments.find()
+    Template.body.events
+        'submit .new-topic': (event) ->
+            event.preventDefault()
+            
+            title = event.target.title.value
+            text = event.target.text.value
 
-    countComments: ->
-      Comments.find().count()
+            Meteor.call('addTopic', title, text)
 
-  Template.body.events
-    'submit .reply': (event) ->
-      event.preventDefault()
+            event.target.title.value = ''
+            event.target.text.value = ''
 
-      text = event.target.text.value
+    Template.body.helpers
+        topics: ->
+            Topics.find()
 
-      Meteor.call('addComment', text)
+    Template.topic.events
+        'submit .reply': (event) ->
+            event.preventDefault()
 
-      event.target.text.value = ''
+            text = event.target.text.value
+
+            Meteor.call('addComment', this._id, text)
+
+            event.target.text.value = ''
+
+    Template.topic.helpers
+        comments: ->
+            Comments.find({topic: this._id})
+
+        countComments: ->
+            Comments.find({topic: this._id}).count()
 
 Meteor.methods
-  addComment: (text) ->
-    Comments.insert
-      username: 'Dustin'
-      text: text
-      timestamp: new Date()
+    addTopic: (title, text) ->
+        Topics.insert
+            'title': title,
+            'text': text
+
+    addComment: (topicId, text) ->
+        Comments.insert
+            topic: topicId
+            username: 'Dustin'
+            text: text

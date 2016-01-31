@@ -1,3 +1,79 @@
-h1
-  color: green
+/* google fonts */
+@import url('https://fonts.googleapis.com/css?family=Montserrat')
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic')
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700,400italic')
+@import url('https://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic')
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic')
 
+/* new color names */
+@import 'colors'
+
+/* =reset
+------------------------------------------ */
+*
+  margin 0
+  padding 0
+
+  box-sizing border-box
+
+input, textarea
+  resize none
+  outline none
+  border none
+  -webkit-box-shadow none
+  -moz-box-shadow none
+  box-shadow none
+
+/* =global styles
+------------------------------------------ */
+body
+  padding 0 5%
+
+  font-size 100%
+  line-height 1.5
+  font-family 'Open Sans', 'Trebuchet MS', Helvetica, Verdana, sans-serif
+
+  color $black
+
+h1
+  font-size 2.747em
+h2
+  font-size 1.229em
+h3
+  font-size 0.874em
+  
+/* =page structure
+------------------------------------------ */
+
+/* =heading
+------------------------------------------ */
+body > header
+  font-family Montserrat, sans-serif
+
+/* =main content
+------------------------------------------ */
+form.new-topic
+  width 20%
+  
+.topic
+  background-color $gray
+  margin 20px 0
+  padding 20px
+
+form.reply
+  margin-bottom 10px
+
+  textarea
+    margin 10px 0
+    width 50%
+
+/* =footer
+------------------------------------------ */
+
+/* =text styles
+------------------------------------------ */
+.topic > header
+  font-family 'Open Sans', 'Trebuchet MS', Helvetica, Verdana, sans-serif
+
+/* =forms
+------------------------------------------ */
