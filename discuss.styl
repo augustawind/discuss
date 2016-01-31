@@ -1,22 +1,37 @@
-/* google fonts */
+/* =font declarations
+------------------------------------------ */
 @import url('https://fonts.googleapis.com/css?family=Montserrat')
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic')
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,700,400italic')
 @import url('https://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic')
 @import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic')
 
-/* new color names */
+
+/* =variable declarations
+------------------------------------------ */
 @import 'colors'
+
+$open-sans = 'Open Sans', 'Trebuchet MS', Helvetica, Verdana, sans-serif
+
+border-radius(size)
+  -webkit-border-radius size
+  -moz-border-radius size
+  border-radius size
+
+$lh = 1.5
+
 
 /* =reset
 ------------------------------------------ */
 *
   margin 0
   padding 0
+  border 0
 
   box-sizing border-box
 
-input, textarea
+input
+textarea
   resize none
   outline none
   border none
@@ -24,14 +39,15 @@ input, textarea
   -moz-box-shadow none
   box-shadow none
 
+
 /* =global styles
 ------------------------------------------ */
 body
   padding 0 5%
 
+  lh $lh
   font-size 100%
-  line-height 1.5
-  font-family 'Open Sans', 'Trebuchet MS', Helvetica, Verdana, sans-serif
+  font-family $open-sans
 
   color $black
 
@@ -41,39 +57,63 @@ h2
   font-size 1.229em
 h3
   font-size 0.874em
+   
+input
+textarea
+  border 1px solid $olive
+  padding 10px
   
+  font-family $open-sans
+
+input[type='text']
+textarea
+  width 100%
+
+
 /* =page structure
 ------------------------------------------ */
+
 
 /* =heading
 ------------------------------------------ */
 body > header
+  margin-bottom 20px
   font-family Montserrat, sans-serif
+
 
 /* =main content
 ------------------------------------------ */
 form.new-topic
-  width 20%
-  
-.topic
-  background-color $gray
+  width 35%
+  min-width 300px
   margin 20px 0
-  padding 20px
-
-form.reply
-  margin-bottom 10px
 
   textarea
+    height ($lh * 8)em
     margin 10px 0
-    width 50%
+  
+.topic
+  margin 20px 0
+  padding 20px
+  border-radius 10px
+
+  background-color $lime
+
+form.reply
+  width 50%
+  min-width 300px
+  margin 20px 0
+
+  textarea
+    height ($lh * 5)em
+    margin 10px 0
+
 
 /* =footer
 ------------------------------------------ */
 
+
 /* =text styles
 ------------------------------------------ */
 .topic > header
-  font-family 'Open Sans', 'Trebuchet MS', Helvetica, Verdana, sans-serif
-
-/* =forms
------------------------------------------- */
+  font-family $open-sans
