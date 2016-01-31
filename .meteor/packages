@@ -23,3 +23,5 @@ mquandalle:jade
 aldeed:simple-schema
 aldeed:collection2
 autopublish
+accounts-password
+accounts-ui
