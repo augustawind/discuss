@@ -4,12 +4,16 @@ head
 body
   header
     h1 discuss
+    div#login
+      +loginButtons
 
-  form(class='new-topic')
-    p: input(type='text' name='title'
-          placeholder='Describe your post in a few words')
-    textarea(name='text' rows='5' cols='30' placeholder='Write your post here')
-    p: input(type='submit' value='Start discussion')
+
+  if currentUser
+    form(class='new-topic')
+      p: input(type='text' name='title'
+            placeholder='Describe your post in a few words')
+      textarea(name='text' rows='5' cols='30' placeholder='Write your post here')
+      p: input(type='submit' value='Start discussion')
 
   #topics
     each topics
@@ -20,9 +24,15 @@ template(name='topic')
     header
       h2= title
 
-    form(class='reply')
-      textarea(name='text' rows='5' cols='30' placeholder='Write your comment here')
-      p: input(type='submit' value='Reply')
+    p.tagline
+      a(href='#')= username
+    p.text= text
+
+    if currentUser
+      form(class='reply')
+        textarea(name='text' rows='5' cols='30'
+                 placeholder='Write your comment here')
+        p: input(type='submit' value='Reply')
 
     p #{countComments} comments
     each comments

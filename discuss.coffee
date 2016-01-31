@@ -38,14 +38,20 @@ if Meteor.isClient
         countComments: ->
             Comments.find({topic: this._id}).count()
 
+    Accounts.ui.config
+        passwordSignupFields: 'USERNAME_ONLY'
+
 Meteor.methods
     addTopic: (title, text) ->
         Topics.insert
-            'title': title,
-            'text': text
+            user: Meteor.userId()
+            username: Meteor.user().username
+            title: title,
+            text: text
 
     addComment: (topicId, text) ->
         Comments.insert
+            user: Meteor.userId()
+            username: Meteor.user().username
             topic: topicId
-            username: 'Dustin'
             text: text
