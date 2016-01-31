@@ -37,6 +37,10 @@ if Meteor.isClient
 
             event.target.text.value = ''
 
+        'click .delete': (event) ->
+            event.preventDefault()
+            Meteor.call('deleteTopic', this._id)
+
     Template.topic.helpers
         comments: ->
             Comments.find({topic: this._id})
@@ -46,6 +50,11 @@ if Meteor.isClient
 
         isAuthor: ->
             this.user is Meteor.userId()
+
+    Template.comment.events
+        'click .delete': (event) ->
+            event.preventDefault()
+            Meteor.call('deleteComment', this._id)
 
     Template.comment.helpers
         isAuthor: ->
@@ -68,3 +77,9 @@ Meteor.methods
             username: Meteor.user().username
             topic: topicId
             text: text
+    
+    deleteTopic: (topicId) ->
+        Topics.remove({_id: topicId, user: Meteor.userId()})
+
+    deleteComment: (commentId) ->
+        Comments.remove({_id: commentId, user: Meteor.userId()})
