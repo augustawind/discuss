@@ -24,11 +24,13 @@ $lh = 1.5
 /* =reset
 ------------------------------------------ */
 *
+  box-sizing border-box
+
   margin 0
   padding 0
   border 0
 
-  box-sizing border-box
+  line-height $lh
 
 input
 textarea
@@ -45,7 +47,6 @@ textarea
 body
   padding 0 5%
 
-  lh $lh
   font-size 100%
   font-family $open-sans
 
@@ -57,7 +58,10 @@ h2
   font-size 1.229em
 h3
   font-size 0.874em
-   
+
+a
+  text-decoration none
+
 input
 textarea
   border 1px solid $olive
@@ -97,7 +101,19 @@ form.new-topic
   padding 20px
   border-radius 10px
 
-  background-color $lime
+  background-color $pastel-green
+
+  header a
+    color $blue
+    font-weight bold
+
+.topic footer
+.comment footer
+  li
+    display inline
+    font-size 0.8em
+    a
+      color $olive
 
 form.reply
   width 50%

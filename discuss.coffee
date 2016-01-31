@@ -44,6 +44,13 @@ if Meteor.isClient
         countComments: ->
             Comments.find({topic: this._id}).count()
 
+        isAuthor: ->
+            this.user is Meteor.userId()
+
+    Template.comment.helpers
+        isAuthor: ->
+            this.user is Meteor.userId()
+
     Accounts.ui.config
         passwordSignupFields: 'USERNAME_ONLY'
 

@@ -1,0 +1,14 @@
+template(name="comment")
+  article.comment
+    header
+      a(href="#") #{username}
+
+    section.post-body
+      | #{text}
+
+    footer
+      ul
+        li.reply: a(href="#") reply
+        //- Show delete button if user owns this topic
+        if isAuthor
+          li.delete: a(href="#") delete

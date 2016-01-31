@@ -7,40 +7,25 @@ body
     div#login
       +loginButtons
 
-
-  if currentUser
-    form(class='new-topic')
-      p: input(type='text' name='title'
-            placeholder='Describe your post in a few words')
-      textarea(name='text' rows='5' cols='30' placeholder='Write your post here')
-      p: input(type='submit' value='Start discussion')
-
-  #topics
-    each topics
-      +topic
-
-template(name='topic')
-  div.topic
-    header
-      h2= title
-
-    p.tagline
-      a(href='#')= username
-    p.text= text
-
+  main
+    //- Allow user to post new topic if logged in
     if currentUser
-      form(class='reply')
-        textarea(name='text' rows='5' cols='30'
-                 placeholder='Write your comment here')
-        p: input(type='submit' value='Reply')
+      form(class="new-topic")
+        p: input(
+          type="text"
+          name="title"
+          placeholder="Describe your post in a few words"
+        )
+        textarea(
+          name="text"
+          rows="5"
+          cols="30"
+          placeholder="Write your post here"
+        )
+        p: input(type="submit" value="Start discussion")
 
-    p #{countComments} comments
-    each comments
-      +comment
+    #topics
+      each topics
+        +topic
 
-template(name='comment')
-  div.comment
-    p.tagline
-      a(href='#')= username
-    p.text
-      = text
+  footer

@@ -1,0 +1,32 @@
+template(name="topic")
+  article.topic
+    header
+      h2= title
+      a(href="#") #{username}
+
+    section.post-body
+      p #{text}
+
+    footer
+      ul
+        li: a.reply(href="#") reply
+        //- Show delete button if user owns this topic
+        if isAuthor
+          li: a.delete(href="#") delete
+
+    //- Allow user to reply to topic if logged in
+    if currentUser
+      form(class="reply")
+        textarea(
+          name="text"
+          rows="5"
+          cols="30"
+          placeholder="Write your comment here"
+          required
+        )
+        p
+          input(type="submit" value="Reply")
+
+    p #{countComments} comments
+    each comments
+      +comment
