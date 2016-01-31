@@ -28,5 +28,7 @@ template(name="topic")
           input(type="submit" value="Reply")
 
     p #{countComments} comments
-    each comments
-      +comment
+
+    article.comments
+      each comments
+        +comment
