@@ -1,9 +1,15 @@
 Topics = new Mongo.Collection('topics')
 Comments = new Mongo.Collection('comments')
 
-#if Meteor.isServer
+if Meteor.isServer
+    Meteor.publish 'topics', ->
+        Topics.find()
+    Meteor.publish 'comments', ->
+        Comments.find()
 
 if Meteor.isClient
+    Meteor.subscribe('topics')
+    Meteor.subscribe('comments')
 
     Template.body.events
         'submit .new-topic': (event) ->
