@@ -28,7 +28,12 @@ if Meteor.isClient
             Topics.find()
 
     Template.topic.events
-        'submit .reply': (event) ->
+        'click a.reply': (event) ->
+            event.preventDefault()
+            
+            Meteor.call('toggleReplyForm', this._id, not this.showReplyForm)
+
+        'submit form.reply': (event) ->
             event.preventDefault()
 
             text = event.target.text.value
@@ -50,6 +55,12 @@ if Meteor.isClient
 
         isAuthor: ->
             this.user is Meteor.userId()
+
+        showReplyForm: ->
+            this.showReplyForm
+
+        replyButtonActive: ->
+            if this.showReplyForm then 'reply-active' else 'reply'
 
     Template.comment.events
         'click .delete': (event) ->
@@ -83,3 +94,8 @@ Meteor.methods
 
     deleteComment: (commentId) ->
         Comments.remove({_id: commentId, user: Meteor.userId()})
+
+    toggleReplyForm: (topicId, showReplyForm) ->
+        Topics.update topicId, {
+            $set: {showReplyForm: showReplyForm}
+        }

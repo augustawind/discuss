@@ -9,26 +9,26 @@ template(name="topic")
 
     footer
       ul
-        li: a.reply(href="#") reply
+        li: a(class="reply #{replyButtonActive}" href="#") reply
         //- Show delete button if user owns this topic
         if isAuthor
           li: a.delete(href="#") delete
 
     //- Allow user to reply to topic if logged in
-    if currentUser
-      form(class="reply")
-        textarea(
-          name="text"
-          rows="5"
-          cols="30"
-          placeholder="Write your comment here"
-          required
-        )
-        p
-          input(type="submit" value="Reply")
-
-    p #{countComments} comments
+    if showReplyForm
+      if currentUser
+        form(class="reply")
+          textarea(
+            name="text"
+            rows="5"
+            cols="30"
+            placeholder="Write your comment here"
+            required
+          )
+          p
+            input(type="submit" value="Reply")
 
     article.comments
+      h3 #{countComments} comments
       each comments
         +comment
