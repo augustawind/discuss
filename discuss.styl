@@ -98,7 +98,6 @@ form.new-topic
     height ($lh * 8)em
     margin 10px 0
 
-  
 .topic
   margin 20px 0
   padding 20px
@@ -106,23 +105,37 @@ form.new-topic
 
   background-color $pastel-green
 
-  header a
+.topic > header
+  a
     color $blue
     font-weight bold
+  time
+    float right
+    font-size small
 
-.topic footer
-.comment footer
+.comment
+  margin: 10px 0
+
+.comment > header
+  font-family $open-sans
+  a
+    color $blue
+  time
+    font-size small
+
+.topic > footer
+.comment > footer
   li
     display inline
-    font-size 0.8em
-    a
-      color $olive
-    a.reply-active
-      color $blue
+    font-size small
 
-form.reply
-  width 50%
-  min-width 300px
+a.reply
+a.delete
+  color $olive
+  &:hover
+    color $blue
+
+form.submit-reply
   margin 5px 0
 
   textarea
@@ -131,13 +144,3 @@ form.reply
 
 .comments
   margin-top 30px
-
-
-/* =footer
------------------------------------------- */
-
-
-/* =text styles
------------------------------------------- */
-.topic > header
-  font-family $open-sans

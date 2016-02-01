@@ -1,6 +1,7 @@
 template(name="topic")
   article.topic
     header
+      time= timestamp
       h2= title
       a(href="#") #{username}
 
@@ -9,15 +10,15 @@ template(name="topic")
 
     footer
       ul
-        li: a(class="reply #{replyButtonActive}" href="#") reply
+        li: a.reply(href="#") reply
         //- Show delete button if user owns this topic
         if isAuthor
           li: a.delete(href="#") delete
 
     //- Allow user to reply to topic if logged in
-    if showReplyForm
+    if replyFormVisible
       if currentUser
-        form(class="reply")
+        form.submit-reply
           textarea(
             name="text"
             rows="5"

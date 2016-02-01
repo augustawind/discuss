@@ -2,6 +2,7 @@ template(name="comment")
   article.comment
     header
       a(href="#") #{username}
+      time= timestamp
 
     section.post-body
       p #{text}

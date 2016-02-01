@@ -25,15 +25,16 @@ if Meteor.isClient
 
     Template.body.helpers
         topics: ->
-            Topics.find()
+            Topics.find({}, {sort: {timestamp: -1}})
 
     Template.topic.events
-        'click a.reply': (event) ->
+        'click .reply': (event) ->
             event.preventDefault()
             
-            Meteor.call('toggleReplyForm', this._id, not this.showReplyForm)
+            Meteor.call('toggleReplyForm', this._id,
+                        not this.replyFormVisible)
 
-        'submit form.reply': (event) ->
+        'submit .submit-reply': (event) ->
             event.preventDefault()
 
             text = event.target.text.value
@@ -41,6 +42,8 @@ if Meteor.isClient
             Meteor.call('addComment', this._id, text)
 
             event.target.text.value = ''
+            Meteor.call('toggleReplyForm', this._id,
+                        not this.replyFormVisible)
 
         'click .delete': (event) ->
             event.preventDefault()
@@ -56,11 +59,8 @@ if Meteor.isClient
         isAuthor: ->
             this.user is Meteor.userId()
 
-        showReplyForm: ->
-            this.showReplyForm
-
-        replyButtonActive: ->
-            if this.showReplyForm then 'reply-active' else 'reply'
+        replyFormVisible: ->
+            this.replyFormVisible
 
     Template.comment.events
         'click .delete': (event) ->
@@ -79,6 +79,7 @@ Meteor.methods
         Topics.insert
             user: Meteor.userId()
             username: Meteor.user().username
+            timestamp: new Date()
             title: title,
             text: text
 
@@ -86,16 +87,18 @@ Meteor.methods
         Comments.insert
             user: Meteor.userId()
             username: Meteor.user().username
+            timestamp: new Date()
             topic: topicId
             text: text
     
     deleteTopic: (topicId) ->
         Topics.remove({_id: topicId, user: Meteor.userId()})
+        Comments.remove({topic: topicId})
 
     deleteComment: (commentId) ->
         Comments.remove({_id: commentId, user: Meteor.userId()})
 
-    toggleReplyForm: (topicId, showReplyForm) ->
+    toggleReplyForm: (topicId, replyFormVisible) ->
         Topics.update topicId, {
-            $set: {showReplyForm: showReplyForm}
+            $set: {replyFormVisible: replyFormVisible}
         }
