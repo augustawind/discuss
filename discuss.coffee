@@ -15,13 +15,14 @@ if Meteor.isClient
         'submit .new-topic': (event) ->
             event.preventDefault()
             
-            title = event.target.title.value
-            text = event.target.text.value
+            titleElem = event.target['title']
+            textElem = event.target['text']
+            title = titleElem.value
+            text = textElem.value
 
             Meteor.call('addTopic', title, text)
 
-            event.target.title.value = ''
-            event.target.text.value = ''
+            titleElem.value = textElem.value = ''
 
     Template.body.helpers
         topics: ->
@@ -37,17 +38,21 @@ if Meteor.isClient
         'submit .submit-reply': (event) ->
             event.preventDefault()
 
-            text = event.target.text.value
+            textElem = event.target['text']
+            text = textElem.value
 
             Meteor.call('addComment', this._id, text)
 
-            event.target.text.value = ''
+            textElem.value = ''
+
             Meteor.call('toggleReplyForm', this._id,
                         not this.replyFormVisible)
 
         'click .delete': (event) ->
             event.preventDefault()
-            Meteor.call('deleteTopic', this._id)
+            
+            if window.confirm('Delete this topic?')
+                Meteor.call('deleteTopic', this._id)
 
     Template.topic.helpers
         comments: ->
