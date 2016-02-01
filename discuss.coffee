@@ -11,8 +11,8 @@ if Meteor.isClient
     Meteor.subscribe('topics')
     Meteor.subscribe('comments')
 
-    Template.body.events
-        'submit .new-topic': (event) ->
+    Template.addTopic.events
+        'submit .add-topic': (event) ->
             event.preventDefault()
             
             titleElem = $(event.target.title)
@@ -25,7 +25,7 @@ if Meteor.isClient
             titleElem.val('')
             textElem.val('')
 
-    Template.body.helpers
+    Template.topicsList.helpers
         topics: ->
             Topics.find({}, {sort: {timestamp: -1}})
 
@@ -108,3 +108,6 @@ Meteor.methods
         Topics.update topicId, {
             $set: {replyFormVisible: replyFormVisible}
         }
+
+Router.route('/register')
+Router.route('/login')

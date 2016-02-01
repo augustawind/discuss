@@ -8,24 +8,6 @@ body
       +loginButtons
 
   main
-    //- Allow user to post new topic if logged in
-    if currentUser
-      form.new-topic
-        p: input(
-          type="text"
-          name="title"
-          placeholder="Describe your post in a few words"
-        )
-        textarea(
-          name="text"
-          rows="5"
-          cols="30"
-          placeholder="Write your post here"
-        )
-        p: input(type="submit" value="Start discussion")
-
-    article#topics
-      each topics
-        +topic
+    +topicsList
 
   footer
