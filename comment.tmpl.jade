@@ -4,11 +4,11 @@ template(name="comment")
       a(href="#") #{username}
 
     section.post-body
-      | #{text}
+      p #{text}
 
     footer
       ul
-        li.reply: a(href="#") reply
+        li: a.reply(href="#") reply
         //- Show delete button if user owns this topic
         if isAuthor
-          li.delete: a(href="#") delete
+          li: a.delete(href="#") delete
