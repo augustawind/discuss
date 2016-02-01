@@ -15,14 +15,15 @@ if Meteor.isClient
         'submit .new-topic': (event) ->
             event.preventDefault()
             
-            titleElem = event.target['title']
-            textElem = event.target['text']
-            title = titleElem.value
-            text = textElem.value
+            titleElem = $(event.target.title)
+            textElem = $(event.target.text)
+            title = titleElem.val()
+            text = textElem.val()
 
             Meteor.call('addTopic', title, text)
 
-            titleElem.value = textElem.value = ''
+            titleElem.val('')
+            textElem.val('')
 
     Template.body.helpers
         topics: ->
@@ -38,12 +39,12 @@ if Meteor.isClient
         'submit .submit-reply': (event) ->
             event.preventDefault()
 
-            textElem = event.target['text']
-            text = textElem.value
+            textElem = $(event.target.text)
+            text = textElem.val()
 
             Meteor.call('addComment', this._id, text)
 
-            textElem.value = ''
+            textElem.val('')
 
             Meteor.call('toggleReplyForm', this._id,
                         not this.replyFormVisible)
