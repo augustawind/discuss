@@ -32,6 +32,8 @@ $lh = 1.5
 
   line-height $lh
 
+  font-family $open-sans
+
 input
 textarea
   resize none
@@ -45,11 +47,12 @@ textarea
 /* =global styles
 ------------------------------------------ */
 body
-  padding 0 5%
+  max-width 650px
+
+  margin 0 auto !important
+  float none !important
 
   font-size 100%
-  font-family $open-sans
-
   color $black
 
 h1
@@ -87,47 +90,71 @@ body > header
   font-family Montserrat, sans-serif
 
 
+/* =navigation
+------------------------------------------ */
+nav a
+  color $blue
+  &:hover
+    color $teal
+
+
 /* =main content
 ------------------------------------------ */
-form.add-topic
-  width 35%
-  min-width 300px
-  margin 20px 0
-
-  textarea
-    height ($lh * 8)em
-    margin 10px 0
-
-.topic
+body > main
   margin 20px 0
   padding 20px
   border-radius 10px
 
   background-color $pastel-green
 
+form.add-topic
+  width 35%
+  min-width 300px
+  margin-bottom 20px
+
+  textarea
+    height ($lh * 8)em
+    margin 10px 0
+
+.please-sign-in
+  margin-bottom 25px
+
+#topics
+  list-style none
+  li:before
+      content '>'
+      margin-right 10px
+      font-weight bold
+      color $olive
+
+#topics a
+  color $blue
+  &:hover
+    color $teal
+
+.username
+  color $green
+time
+  float right
+  font-size small
+
 .topic > header
-  a
-    color $blue
+  margin-bottom 10px
+  h2
+    margin-bottom 10px
+    font-family Montserrat, sans-serif
+  p
+    font-size small
+  .username
     font-weight bold
-  time
-    float right
-    font-size small
-
-.comment
-  margin: 10px 0
-
-.comment > header
-  font-family $open-sans
-  a
-    color $blue
-  time
-    font-size small
 
 .topic > footer
-.comment > footer
-  li
-    display inline
-    font-size small
+  padding 10px 0
+  border-bottom 3px solid $olive
+
+  a
+    margin-right 5px
+    font-weight bold
 
 a.reply
 a.delete
@@ -144,3 +171,23 @@ form.submit-reply
 
 .comments
   margin-top 30px
+
+.comment
+  margin 10px 0
+
+  &:nth-child(1n+3)
+    border-top 1px dotted $olive
+    padding-top 20px
+
+.comment > footer
+  li
+    display inline
+    font-size small
+
+
+/* =footer
+------------------------------------------ */
+body > footer
+  margin 30px 0
+  text-align center
+  font-size small

@@ -1,0 +1,8 @@
+if currentUser
+  +addTopic
+else
+  p.please-sign-in Sign in to start posting.
+
+ ul#topics
+  each topics
+    li: a(href="{{pathFor route='topicPage'}}")= title

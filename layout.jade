@@ -1,0 +1,15 @@
+template(name="layout")
+  header
+    h1 discuss
+    div#login
+      +loginButtons
+
+  nav
+    a(href="{{pathFor route='topicsList'}}") All Topics
+
+  main
+    +yield
+
+  footer
+    p &copy; 2016 Dustin Rohde
+    p: a(href="mailto:xdrohdex@gmail.com") xdrohdex@gmail.com

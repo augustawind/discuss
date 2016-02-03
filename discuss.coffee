@@ -8,8 +8,8 @@ if Meteor.isServer
         Comments.find()
 
 if Meteor.isClient
-    Meteor.subscribe('topics')
-    Meteor.subscribe('comments')
+    Meteor.subscribe 'topics'
+    Meteor.subscribe 'comments'
 
     Template.addTopic.events
         'submit .add-topic': (event) ->
@@ -98,8 +98,10 @@ Meteor.methods
             text: text
     
     deleteTopic: (topicId) ->
-        Topics.remove({_id: topicId, user: Meteor.userId()})
         Comments.remove({topic: topicId})
+        Topics.remove {_id: topicId, user: Meteor.userId()}, (err, res) ->
+            # WARNING:unhandled error
+            Router.go('/')
 
     deleteComment: (commentId) ->
         Comments.remove({_id: commentId, user: Meteor.userId()})
@@ -109,5 +111,19 @@ Meteor.methods
             $set: {replyFormVisible: replyFormVisible}
         }
 
-Router.route('/register')
-Router.route('/login')
+Router.configure {
+    layoutTemplate: 'layout'
+}
+Router.route '/', {
+    name: 'topicsList'
+    template: 'topicsList'
+    layout: 'layout'
+}
+Router.route '/topic/:_id', {
+    name: 'topicPage'
+    template: 'topic'
+    layout: 'layout'
+    data: ->
+        topic = this.params._id
+        return Topics.findOne({_id: topic})
+}

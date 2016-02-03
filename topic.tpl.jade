@@ -1,0 +1,35 @@
+article.topic
+  header
+    h2= title
+    p Posted by
+      time= timestamp
+      span.username #{username}
+
+  section.post-body
+    p #{text}
+
+  footer
+    if currentUser
+      a.reply(href="#") reply
+    //- Show delete button if user owns this topic
+    if isAuthor
+      a.delete(href="#") delete
+
+    //- Allow user to reply to topic if logged in
+    if replyFormVisible
+      if currentUser
+        form.submit-reply
+          textarea(
+            name="text"
+            rows="5"
+            cols="30"
+            placeholder="Write your comment here"
+            required
+          )
+          p
+            input(type="submit" value="Reply")
+
+  article.comments
+    h3 #{countComments} comments
+    each comments
+      +comment

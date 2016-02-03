@@ -1,0 +1,13 @@
+article.comment
+  header
+    time= timestamp
+    span.username #{username}
+
+  section.post-body
+    p #{text}
+
+  footer
+    ul
+      //- Show delete button if user owns this topic
+      if isAuthor
+        li: a.delete(href="#") delete
